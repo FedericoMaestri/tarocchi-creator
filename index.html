@@ -6,7 +6,7 @@
 <title>Il Banco dei Tarocchi · Tarocchi Creator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    TEMI  (colore di font e interfaccia)
@@ -280,6 +280,8 @@ button.piatto{
   font-family:var(--font-titolo);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--accento);margin:0 0 6px;
 }
+.lettura .creator{font-size:16px;letter-spacing:.02em;color:var(--inchiostro);margin:0 0 6px}
+.lettura .creator[hidden]{display:none}
 .lettura .verso{font-size:13.5px;font-style:italic;color:var(--inchiostro-tenue);margin:0}
 .chiudi{
   margin-left:auto;border:1px solid var(--filo);border-radius:50%;
@@ -287,7 +289,7 @@ button.piatto{
 }
 .corpo-lettura{padding:18px 20px 28px;overflow-y:auto}
 .ritratto{
-  width:min(210px,60%);aspect-ratio:200/340;margin:0 auto 18px;border-radius:7px;overflow:hidden;
+  width:min(265px,74%);aspect-ratio:200/340;margin:0 auto 18px;border-radius:7px;overflow:hidden;
   box-shadow:0 14px 26px -14px var(--ombra);
 }
 .ritratto svg{display:block;width:100%;height:100%}
@@ -515,6 +517,7 @@ button.piatto{
     <div>
       <p class="posizione" id="l-posizione">Posizione</p>
       <h3 id="l-nome">Carta</h3>
+      <p class="creator" id="l-creator" hidden></p>
       <p class="verso" id="l-verso"></p>
     </div>
     <button class="chiudi" id="btn-chiudi" aria-label="Chiudi la lettura">&#215;</button>
@@ -565,91 +568,91 @@ const DORSO_ORIGINALE = "UklGRgo5AQBXRUJQVlA4IP44AQDw9QKdASrgATADPnkylEckoqIhLhU
    ARCANI MAGGIORI
    ============================================================ */
 const MAGGIORI = [
-  {id:"matto", roman:"", nome:"Il Matto", arte:"matto",
+  {id:"matto", roman:"", nome:"Il Matto", arte:"matto", creator:"Cyrus",
    parole:["partenza","libertà","incoscienza"],
    su:"Un inizio senza garanzie. Si parte leggeri, fidandosi dell'istinto più che del piano.",
    giu:"Slancio che diventa avventatezza: si salta senza guardare, o si resta immobili per paura di sbagliare."},
-  {id:"bagatto", roman:"I", nome:"Il Mago", arte:"bagatto",
+  {id:"bagatto", roman:"I", nome:"Il Mago", arte:"bagatto", creator:"Carlo Procaccini",
    parole:["abilità","inizio","volontà"],
    su:"Hai gli strumenti sul tavolo e la mano ferma per usarli. È il momento di mettersi all'opera.",
    giu:"Talento sprecato o usato per ingannare: molta destrezza, poca sostanza."},
-  {id:"papessa", roman:"II", nome:"La Papessa", arte:"papessa",
+  {id:"papessa", roman:"II", nome:"La Papessa", arte:"papessa", creator:"Mara Sanvitale",
    parole:["silenzio","studio","intuito"],
    su:"Sapere che non si mostra. Attendere, osservare e lasciare che la risposta arrivi da sé.",
    giu:"Segreti che pesano, distacco eccessivo, un'intuizione che si preferisce ignorare."},
-  {id:"imperatrice", roman:"III", nome:"L'Imperatrice", arte:"imperatrice",
+  {id:"imperatrice", roman:"III", nome:"L'Imperatrice", arte:"imperatrice", creator:"Charlotte Matteini",
    parole:["fertilità","abbondanza","cura"],
    su:"Qualcosa cresce e chiede di essere nutrito: un progetto, un legame, un talento.",
    giu:"Cura che soffoca, dispersione, un'idea rimasta senza frutto."},
-  {id:"imperatore", roman:"IV", nome:"L'Imperatore", arte:"imperatore",
+  {id:"imperatore", roman:"IV", nome:"L'Imperatore", arte:"imperatore", creator:"Wesa",
    parole:["ordine","autorità","struttura"],
    su:"Le regole reggono. Dare forma, tracciare confini, prendersi la responsabilità di decidere.",
    giu:"Rigidità e controllo, oppure un'autorità assente che lascia tutto allo sbando."},
-  {id:"papa", roman:"V", nome:"Il Papa", arte:"papa",
+  {id:"papa", roman:"V", nome:"Il Papa", arte:"papa", creator:"Stefano Cozzi",
    parole:["insegnamento","tradizione","consiglio"],
    su:"Un maestro, una regola condivisa, un sapere che passa di mano. Chiedere consiglio conviene.",
    giu:"Dogma senza anima, conformismo, oppure il bisogno di trovare una via propria."},
-  {id:"amore", roman:"VI", nome:"Gli Amanti", arte:"amore",
+  {id:"amore", roman:"VI", nome:"Gli Amanti", arte:"amore", creator:"Raiden e Midna",
    parole:["scelta","legame","desiderio"],
    su:"Un bivio del cuore. Ciò che si sceglie dice chi si vuole diventare.",
    giu:"Indecisione, legame squilibrato, una scelta rimandata che comincia a costare."},
-  {id:"carro", roman:"VII", nome:"Il Carro", arte:"carro",
+  {id:"carro", roman:"VII", nome:"Il Carro", arte:"carro", creator:"Dario Moccia",
    parole:["vittoria","partenza","controllo"],
    su:"Si avanza e si vince tenendo le redini. Direzione chiara, forze tenute insieme.",
    giu:"Corsa senza meta, forze che tirano da parti opposte, vittoria che non appaga."},
-  {id:"giustizia", roman:"VIII", nome:"La Giustizia", arte:"giustizia",
+  {id:"giustizia", roman:"VIII", nome:"La Giustizia", arte:"giustizia", creator:"Cazzaniga",
    parole:["equilibrio","verità","conseguenze"],
    su:"Ogni cosa torna al suo peso. Un patto, una decisione, un conto che si chiude con onestà.",
    giu:"Giudizio parziale, torto non riconosciuto, rigore usato come arma."},
-  {id:"eremita", roman:"IX", nome:"L'Eremita", arte:"eremita",
+  {id:"eremita", roman:"IX", nome:"L'Eremita", arte:"eremita", creator:"sbortus",
    parole:["ritiro","ricerca","prudenza"],
    su:"Un passo indietro per vedere meglio. La lampada illumina poco, ma abbastanza per il prossimo passo.",
    giu:"Isolamento che diventa fuga, o rifiuto di ascoltare chi conosce la strada."},
-  {id:"ruota", roman:"X", nome:"La Ruota della Fortuna", arte:"ruota",
+  {id:"ruota", roman:"X", nome:"La Ruota della Fortuna", arte:"ruota", creator:"Arkanight",
    parole:["svolta","ciclo","destino"],
    su:"La situazione gira da sola. Quello che sembrava fermo si muove, in bene o in male.",
    giu:"Ruota che gira contro, ripetizione degli stessi errori, resistenza al cambiamento."},
-  {id:"forza", roman:"XI", nome:"La Forza", arte:"forza",
+  {id:"forza", roman:"XI", nome:"La Forza", arte:"forza", creator:"Flame e Voce",
    parole:["dominio di sé","coraggio","dolcezza"],
    su:"Si vince con la calma. L'istinto non si spegne, si convince.",
    giu:"Impulsi che prendono il sopravvento, o durezza scambiata per fermezza."},
-  {id:"appeso", roman:"XII", nome:"L'Appeso", arte:"appeso",
+  {id:"appeso", roman:"XII", nome:"L'Appeso", arte:"appeso", creator:"Federico Maestri",
    parole:["sospensione","sacrificio","altro punto di vista"],
    su:"Un tempo di attesa che non è sprecato: capovolgere lo sguardo mostra ciò che sfuggiva.",
    giu:"Attesa sterile, sacrificio inutile, sensazione di essere bloccati a testa in giù."},
-  {id:"morte", roman:"XIII", nome:"La Morte", arte:"morte",
+  {id:"morte", roman:"XIII", nome:"La Morte", arte:"morte", creator:"Falconero",
    parole:["fine","trasformazione","pulizia"],
    su:"Qualcosa finisce davvero, e la fine libera spazio. Taglio netto, senza rimpianti.",
    giu:"Ci si aggrappa a ciò che è già finito; il cambiamento arriva lo stesso, più duro."},
-  {id:"temperanza", roman:"XIV", nome:"La Temperanza", arte:"temperanza",
+  {id:"temperanza", roman:"XIV", nome:"La Temperanza", arte:"temperanza", creator:"Mansikawaii",
    parole:["misura","guarigione","fluire"],
    su:"Si mescola, si dosa, si lascia decantare. Il tempo giusto fa metà del lavoro.",
    giu:"Eccessi, fretta, due cose che non si riesce a tenere insieme."},
-  {id:"diavolo", roman:"XV", nome:"Il Diavolo", arte:"diavolo",
+  {id:"diavolo", roman:"XV", nome:"Il Diavolo", arte:"diavolo", creator:"Sabaku no Maiku",
    parole:["legame","tentazione","istinto"],
    su:"Desiderio potente e catena sottile. Grande energia, purché si sappia chi tiene il guinzaglio.",
    giu:"La catena si allenta: ci si accorge di una dipendenza e si comincia a scioglierla."},
-  {id:"torre", roman:"XVI", nome:"La Torre", arte:"torre",
+  {id:"torre", roman:"XVI", nome:"La Torre", arte:"torre", creator:"LucaWright",
    parole:["crollo","rivelazione","liberazione"],
    su:"Un colpo improvviso abbatte ciò che era costruito male. Fa male e mette in chiaro.",
    giu:"Crollo rimandato, crepe ignorate, oppure una scossa vissuta al riparo."},
-  {id:"stelle", roman:"XVII", nome:"La Stella", arte:"stelle",
+  {id:"stelle", roman:"XVII", nome:"La Stella", arte:"stelle", creator:"Kafkanya",
    parole:["speranza","ispirazione","serenità"],
    su:"Dopo lo scossone, l'acqua chiara. Fiducia, ispirazione e una direzione che si rivede in cielo.",
    giu:"Sfiducia, ideali annacquati, la sensazione che la luce sia per gli altri."},
-  {id:"luna", roman:"XVIII", nome:"La Luna", arte:"luna",
+  {id:"luna", roman:"XVIII", nome:"La Luna", arte:"luna", creator:"DBG_Lelex",
    parole:["sogno","inganno","inconscio"],
    su:"Terreno notturno: intuizioni fortissime e contorni incerti. Si procede a tentoni.",
    giu:"La nebbia si dirada, oppure paura e fantasie prendono il posto dei fatti."},
-  {id:"sole", roman:"XIX", nome:"Il Sole", arte:"sole",
+  {id:"sole", roman:"XIX", nome:"Il Sole", arte:"sole", creator:"n0l4n",
    parole:["chiarezza","gioia","riuscita"],
    su:"Tutto viene alla luce e funziona. Semplicità, calore, cose dette in faccia.",
    giu:"Luce offuscata: successo rinviato, entusiasmo che si spegne, vanità."},
-  {id:"giudizio", roman:"XX", nome:"Il Giudizio", arte:"giudizio",
+  {id:"giudizio", roman:"XX", nome:"Il Giudizio", arte:"giudizio", creator:"AGCOM",
    parole:["risveglio","chiamata","bilancio"],
    su:"Una chiamata a cui rispondere. Il passato torna per essere chiuso bene, non per pesare.",
    giu:"Chiamata ignorata, rimorsi che si trascinano, giudizio troppo severo su di sé."},
-  {id:"mondo", roman:"XXI", nome:"Il Mondo", arte:"mondo",
+  {id:"mondo", roman:"XXI", nome:"Il Mondo", arte:"mondo", creator:"Zeusecsi e Business in Gaming",
    parole:["compimento","apertura","integrazione"],
    su:"Il cerchio si chiude. Un traguardo raggiunto che apre subito un orizzonte più ampio.",
    giu:"Compimento incompleto, un ultimo passo che manca, orizzonte tenuto stretto."}
@@ -849,7 +852,7 @@ const MINORI = {
 function costruisciMazzo(){
   const mazzo = [];
   MAGGIORI.forEach((c,i)=>mazzo.push({
-    tipo:"maggiore", chiave:"m"+i, nome:c.nome, roman:c.roman, arte:c.arte,
+    tipo:"maggiore", chiave:"m"+i, nome:c.nome, roman:c.roman, arte:c.arte, creator:c.creator,
     parole:c.parole, su:c.su, giu:c.giu,
     famiglia:"Arcani maggiori"
   }));
@@ -2022,6 +2025,28 @@ ${testo(100,328,nome.toUpperCase(),dim,P.inchiostro,"middle",F_TITOLO,{"letter-s
 }
 const BORDO = `<rect x="1.6" y="1.6" width="196.8" height="336.8" rx="5" fill="none" stroke="${P.inchiostro}" stroke-width="3.2"/>`;
 
+/* targhetta col nome del creator: sta sempre alla stessa distanza
+   dal bordo superiore del cartiglio, che non e' alla stessa altezza
+   in tutte le scansioni (valori misurati sulle immagini, tavola 200x340) */
+const BORDO_CARTIGLIO = {
+  matto:297.9, bagatto:295.8, papessa:301.2, imperatrice:295.8, imperatore:296.7,
+  papa:298.3, amore:297.5, carro:297.9, giustizia:296.7, eremita:295.8, ruota:296.7,
+  forza:298.8, appeso:296.7, morte:303.3, temperanza:305.0, diavolo:300.0,
+  torre:302.9, stelle:311.2, luna:310.4, sole:309.6, giudizio:303.3, mondo:301.7
+};
+function targaCreator(nome, arte){
+  if(!nome) return "";
+  const n = nome.length, passo = 6, maxTesto = 158;
+  const largo = Math.min(maxTesto, n*passo);
+  const w = largo + 18, x = (200 - w)/2, h = 15, stacco = 4;
+  const y = (BORDO_CARTIGLIO[arte] || 296) - stacco - h;
+  const fit = n*passo > maxTesto ? ` textLength="${maxTesto}" lengthAdjust="spacingAndGlyphs"` : "";
+  return `<g class="targa-creator">
+<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h}" rx="7.5" fill="#f6eedb" stroke="#1d1a15" stroke-width="1"/>
+<rect x="${(x+2).toFixed(1)}" y="${(y+2).toFixed(1)}" width="${(w-4).toFixed(1)}" height="${h-4}" rx="5.5" fill="none" stroke="#1d1a15" stroke-width=".45" opacity=".55"/>
+<text x="100" y="${(y+10.9).toFixed(1)}" font-family="'EB Garamond', Garamond, Georgia, serif" font-weight="600" font-size="11" fill="#14110d" text-anchor="middle"${fit}>${nome}</text>
+</g>`;
+}
 function svgCarta(c){
   const nome = c.nome;
   const d = defsCarta(), id = d.id;
@@ -2035,6 +2060,7 @@ function svgCarta(c){
     return apri+
 `<rect width="200" height="340" fill="${P.carta}"/>
 <image href="data:image/webp;base64,${scansione}" x="0" y="0" width="200" height="340" preserveAspectRatio="none"/>
+${targaCreator(c.creator, c.arte)}
 </svg>`;
   }
 
@@ -2718,6 +2744,7 @@ function apriLettura(posto){
   if(inGalleria()){
     $("#l-posizione").textContent = "Galleria \u00b7 arcano "+(c.roman||"0");
     $("#l-nome").textContent = c.nome;
+    mostraCreator(c);
     $("#l-verso").textContent = "Dritta";
     $("#l-ritratto").innerHTML = svgCarta(c);
     $("#l-ritratto").classList.remove("rovesciata");
@@ -2731,6 +2758,7 @@ function apriLettura(posto){
   $("#l-contesto-titolo").textContent = "In questa posizione";
   $("#l-posizione").textContent = posti.nome;
   $("#l-nome").textContent = c.nome;
+    mostraCreator(c);
   $("#l-verso").textContent = v.rovesciata ? "Rovesciata" : "Dritta";
   $("#l-ritratto").innerHTML = svgCarta(c);
   $("#l-ritratto").classList.toggle("rovesciata", v.rovesciata);
@@ -2738,6 +2766,11 @@ function apriLettura(posto){
   $("#l-parole").innerHTML = c.parole.map(p=>"<span>"+p+"</span>").join("");
   $("#l-contesto").innerHTML = posti.ctx+"<br><span style='opacity:.7'>"+c.famiglia+"</span>";
   elLettura.classList.add("aperta");
+}
+function mostraCreator(c){
+  const el = $("#l-creator");
+  el.textContent = c.creator || "";
+  el.hidden = !c.creator;
 }
 function chiudiLettura(){ elLettura.classList.remove("aperta"); }
 
